@@ -30,4 +30,6 @@ collapse :: Tree t -> [t]
 collapse NilT = []
 collapse (Node t ls rs) =  [t] ++ collapse(ls) ++ collapse(rs)
 
--- mapTree :: (t -> u) -> Tree t -> Tree u
+mapTree :: (t -> u) -> Tree t -> Tree u
+mapTree _ NilT = NilT
+mapTree f (Node t ls rs) = (Node (f(t)) (mapTree f ls) (mapTree f rs))
