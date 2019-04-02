@@ -2,7 +2,12 @@ data Expr = Lit Int |
             Add Expr Expr |
             Sub Expr Expr
 
-data List t = Nil | Cons t (List t)
+data List t = Nil | Cons t (List t) 
+    deriving Show
+
+data Tree t = NilT | Node t (Tree t) (Tree t)
+    deriving Show
+-- (Node(1)(Node(2)(NilT)(NilT))(Node(3)(NilT)(NilT)))
 
 showExpr :: Expr -> String
 showExpr (Lit i) = show i
@@ -14,7 +19,12 @@ toList :: List t -> [t]
 toList Nil = []
 toList (Cons t l) = [t] ++ toList(l)
 
--- fromList :: [t] -> List t
--- depth :: Tree t -> Int
+fromList :: [t] -> List t
+fromList [] = Nil
+fromList (x:xs) = (Cons x (fromList xs))
+
+depth :: Tree t -> Int
+depth NilT = 0
+depth (Node t l r) = 1 + (max (depth l) (depth r))
 -- collapse :: Tree t -> [t]
 -- mapTree :: (t -> u) -> Tree t -> Tree u
