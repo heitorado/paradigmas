@@ -3,7 +3,12 @@ data Expr = Lit Int |
             Sub Expr Expr
 
 data List t = Nil | Cons t (List t) 
-    deriving Show
+--    deriving Show
+-- (Cons 1 (Cons 2 (Cons 3 (Cons 4 (Cons 5 Nil)))))
+
+instance (Show t) => Show (List t) where
+    show Nil = "Nil"
+    show (Cons t l) = show(t) ++ ", " ++ show(l)
 
 data Tree t = NilT | Node t (Tree t) (Tree t)
     deriving Show
