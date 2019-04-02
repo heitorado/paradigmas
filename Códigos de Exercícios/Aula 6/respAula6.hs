@@ -14,7 +14,6 @@ showExpr (Lit i) = show i
 showExpr (Add a b) = "(" ++ showExpr(a) ++ " + " ++ showExpr(b) ++ ")"
 showExpr (Sub a b) = "(" ++ showExpr(a) ++ " - " ++ showExpr(b) ++ ")"
 
-
 toList :: List t -> [t]
 toList Nil = []
 toList (Cons t l) = [t] ++ toList(l)
@@ -26,5 +25,9 @@ fromList (x:xs) = (Cons x (fromList xs))
 depth :: Tree t -> Int
 depth NilT = 0
 depth (Node t l r) = 1 + (max (depth l) (depth r))
--- collapse :: Tree t -> [t]
+
+collapse :: Tree t -> [t]
+collapse NilT = []
+collapse (Node t ls rs) =  [t] ++ collapse(ls) ++ collapse(rs)
+
 -- mapTree :: (t -> u) -> Tree t -> Tree u
