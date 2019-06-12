@@ -36,9 +36,9 @@ assemblySandwichWorker sandwichesToMake k meatDisp tomatoDisp breadDisp =
                     prepareSandwich k meatDisp tomatoDisp breadDisp
                 )
         sandwiches <- takeMVar sandwichesToMake
-        putStrLn ("+1 Sanduiche feito, restam "++(show(sandwiches-1)))
         if(sandwiches-1 >= 0) then
             do
+                putStrLn ("+1 Sanduiche feito, restam "++(show(sandwiches-1)))
                 putMVar sandwichesToMake (sandwiches-1)
                 assemblySandwichWorker sandwichesToMake k meatDisp tomatoDisp breadDisp
         else 
