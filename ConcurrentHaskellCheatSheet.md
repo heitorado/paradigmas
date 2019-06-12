@@ -35,7 +35,9 @@ main = do
 
 Cada comando ```forkIO``` cria uma nova thread que executará o método passado como argumento.
 
-# Criando Threads em Haskell
+# Conceitos importantes
+## IO
+## STM e 'atomically() / atomically(do {...})'
 STM - Software Transactional Memory é uma implementações de Haskell de memória transacional, que nos ajuda em concorrência de modo a não precisarmos fazer uso de meios bloqueantes entre threads. A forma mais simples de ver a memória transacional é relacionando ao funcionamento das transações de um banco de dados convencional - se a transação é bem sucedida e consistente, ele realiza um "COMMIT" e grava na tabela do banco. Caso haja alguma inconsistência a transação não é executada pela "metade". É feito um "ROLLBACK" e as mudanças já feitas não são aplicadas.
 
 Isso pode ser feito em Haskell com TVars, isto é, Transactional Variables. Variáveis transacionais e seus métodos podem ser utilizados **apenas** através do método ```atomically```, que é util principalmente por 2 motivos
@@ -75,11 +77,6 @@ lock myLock =
 unlock :: TVar Bool -> IO()
 unlock myLock = atomically( do( writeTVar myLock True ) )
 ```
-
-
-# Conceitos importantes
-## IO
-## STM
 # Código Thread-Safe em Haskell
 ## MVars
 ## TVars
